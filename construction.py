@@ -1,11 +1,12 @@
 import streamlit as st
 
+# Constants for the prices
+base_price_per_sqft = 100  # Example base price per square foot
+bedroom_price = 5000  # Additional price per bedroom
+luxury_feature_price = 10000  # Additional price per luxury feature
+
 # Function to calculate construction fee and breakdown
 def calculate_construction_fee_breakdown(square_feet, bedrooms, luxury_features):
-    base_price_per_sqft = 100  # Example base price per square foot
-    bedroom_price = 5000  # Additional price per bedroom
-    luxury_feature_price = 10000  # Additional price per luxury feature
-    
     # Calculate costs
     square_feet_cost = square_feet * base_price_per_sqft
     bedroom_cost = bedrooms * bedroom_price
@@ -17,6 +18,14 @@ def calculate_construction_fee_breakdown(square_feet, bedrooms, luxury_features)
 # Streamlit app
 def main():
     st.title("Housing Construction Fee Estimator")
+
+    # Display the base prices at the top
+    st.markdown("""
+        ## Base Prices
+        - **Base Price per Square Foot:** $`{}` per sqft
+        - **Bedroom Price:** $`{}` per bedroom
+        - **Luxury Feature Price:** $`{}` per feature
+    """.format(base_price_per_sqft, bedroom_price, luxury_feature_price))
 
     # User inputs
     with st.form("input_form"):
