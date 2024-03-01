@@ -6,13 +6,12 @@ def calculate_construction_fee_breakdown(square_feet, bedrooms, luxury_features)
     bedroom_price = 5000  # Additional price per bedroom
     luxury_feature_price = 10000  # Additional price per luxury feature
     
-    # Calculate total fee
+    # Calculate costs
     square_feet_cost = square_feet * base_price_per_sqft
     bedroom_cost = bedrooms * bedroom_price
     luxury_feature_cost = luxury_features * luxury_feature_price
     total_fee = square_feet_cost + bedroom_cost + luxury_feature_cost
     
-    # Return the total fee and the breakdown
     return total_fee, square_feet_cost, bedroom_cost, luxury_feature_cost
 
 # Streamlit app
@@ -20,26 +19,38 @@ def main():
     st.title("Housing Construction Fee Estimator")
 
     # User inputs
-    square_feet = st.number_input("Size of the house in square feet:", min_value=100.0, value=1000.0, step=100.0)
-    bedrooms = st.number_input("Number of bedrooms:", min_value=1, value=3, step=1)
-    luxury_features = st.number_input("Number of luxury features (e.g., pool, spa, etc.):", min_value=0, value=0, step=1)
-    
-    # Button to calculate fee
-    if st.button("Calculate Construction Fee"):
+    with st.form("input_form"):
+        square_feet = st.number_input("Size of the house in square feet:", min_value=100.0, value=1000.0, step=100.0)
+        bedrooms = st.number_input("Number of bedrooms:", min_value=1, value=3, step=1)
+        luxury_features = st.number_input("Number of luxury features (e.g., pool, spa, etc.):", min_value=0, value=0, step=1)
+        
+        submitted = st.form_submit_button("Calculate Construction Fee")
+        
+    if submitted:
         # Calculate fee and breakdown
         total_fee, square_feet_cost, bedroom_cost, luxury_feature_cost = calculate_construction_fee_breakdown(square_feet, bedrooms, luxury_features)
         
-        # Display fee and breakdown
-        st.success(f"The estimated construction fee is: ${total_fee:,.2f}")
-        st.markdown(f"**Breakdown:**")
-        st.markdown(f"- Square Feet Cost: ${square_feet_cost:,.2f} (${base_price_per_sqft} per sqft)")
-        st.markdown(f"- Bedrooms Cost: ${bedroom_cost:,.2f} (${bedroom_price} per bedroom)")
-        st.markdown(f"- Luxury Features Cost: ${luxury_feature_cost:,.2f} (${luxury_feature_price} per feature)")
-
-# Constants for display
-base_price_per_sqft = 100  # Example base price per square foot
-bedroom_price = 5000  # Additional price per bedroom
-luxury_feature_price = 10000  # Additional price per luxury feature
+        # Layout
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.subheader("Total Cost for Each Item:")
+            st.text(f"Square Feet: ${square_feet_cost:,.2f}")
+            st.text(f"Bedrooms: ${bedroom_cost:,.2f}")
+            st.text(f"Luxury Features: ${luxury_feature_cost:,.2f}")
+        
+        with col2:
+            st.subheader("Breakdown:")
+            st.text(f"Square Feet Cost (${base_price_per_sqft} per sqft):")
+            st.text(f"    ${square_feet_cost:,.2f} for {square_feet} sqft")
+            st.text(f"Bedrooms Cost (${bedroom_price} per bedroom):")
+            st.text(f"    ${bedroom_cost:,.2f} for {bedrooms} bedrooms")
+            st.text(f"Luxury Features Cost (${luxury_feature_price} per feature):")
+            st.text(f"    ${luxury_feature_cost:,.2f} for {luxury_features} features")
+        
+        # Display the estimated total below everything
+        st.subheader("Estimated Total Construction Fee:")
+        st.success(f"${total_fee:,.2f}")
 
 if __name__ == "__main__":
     main()
