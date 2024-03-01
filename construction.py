@@ -22,9 +22,9 @@ def main():
     # Display the base prices at the top
     st.markdown("""
         ## Base Prices
-        - **Base Price per Square Foot:** $`{}` per sqft
-        - **Bedroom Price:** $`{}` per bedroom
-        - **Luxury Feature Price:** $`{}` per feature
+        - **Base Price per Square Foot:** RM`{}` per sqft
+        - **Bedroom Price:** RM`{}` per bedroom
+        - **Luxury Feature Price:** RM`{}` per feature
     """.format(base_price_per_sqft, bedroom_price, luxury_feature_price))
 
     # User inputs
@@ -44,22 +44,22 @@ def main():
         
         with col1:
             st.subheader("Total Cost for Each Item:")
-            st.text(f"Square Feet: ${square_feet_cost:,.2f}")
-            st.text(f"Bedrooms: ${bedroom_cost:,.2f}")
-            st.text(f"Luxury Features: ${luxury_feature_cost:,.2f}")
+            st.text(f"Square Feet: RM{square_feet_cost:,.2f}")
+            st.text(f"Bedrooms: RM{bedroom_cost:,.2f}")
+            st.text(f"Luxury Features: RM{luxury_feature_cost:,.2f}")
         
         with col2:
             st.subheader("Breakdown:")
-            st.text(f"Square Feet Cost (${base_price_per_sqft} per sqft):")
-            st.text(f"    ${square_feet_cost:,.2f} for {square_feet} sqft")
-            st.text(f"Bedrooms Cost (${bedroom_price} per bedroom):")
-            st.text(f"    ${bedroom_cost:,.2f} for {bedrooms} bedrooms")
-            st.text(f"Luxury Features Cost (${luxury_feature_price} per feature):")
-            st.text(f"    ${luxury_feature_cost:,.2f} for {luxury_features} features")
+            st.text(f"Square Feet Cost (RM{base_price_per_sqft} per sqft):")
+            st.text(f"    RM{square_feet_cost:,.2f} for {square_feet} sqft")
+            st.text(f"Bedrooms Cost (RM{bedroom_price} per bedroom):")
+            st.text(f"    RM{bedroom_cost:,.2f} for {bedrooms} bedrooms")
+            st.text(f"Luxury Features Cost (RM{luxury_feature_price} per feature):")
+            st.text(f"    RM{luxury_feature_cost:,.2f} for {luxury_features} features")
         
         # Display the estimated total below everything
         st.subheader("Estimated Total Construction Fee:")
-        st.success(f"${total_fee:,.2f}")
+        st.success(f"RM{total_fee:,.2f}")
 
 if __name__ == "__main__":
     main()
